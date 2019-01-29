@@ -30,8 +30,8 @@
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "build": "babel src --out-dir build",
-    "build:watch": "babel src --watch --out-dir build",
+    "build": "babel src --out-dir build --source-maps",
+    "build:watch": "babel src --watch --out-dir build --source-maps",
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {

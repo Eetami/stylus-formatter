@@ -1,14 +1,12 @@
-# stylus-formatter README
-
-This is the README for your extension "stylus-formatter". After writing up a brief description, we recommend including the following sections.
+# Stylus Formatter
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+A simple code formatter for Stylus files (`.styl` extension).
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
+* Removes trailing whitespace.
+* Converts indentation to the selected format (tabs or spaces) according to workspace settings.
+* Adds a trailing empty line if it doesn't exist.
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 

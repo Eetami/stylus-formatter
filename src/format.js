@@ -1,5 +1,5 @@
 import vscode from 'vscode'
-import { repeat } from 'lodash'
+import { ceil, repeat } from 'lodash'
 
 export const insertLastLine = (document, options) => {
   const lastLine = document.lineAt(document.lineCount - 1)
@@ -9,7 +9,7 @@ export const insertLastLine = (document, options) => {
   return []
 }
 
-const trimLine = line => {
+const trimRight = line => {
   const pos = line.text.search(/\s+$/)
   if (pos !== -1) {
     const range = new vscode.Range(
@@ -20,29 +20,27 @@ const trimLine = line => {
   }
 }
 
-const numberOfTabs = text => {
+const countChars = (text, char) => {
   let count = 0
   let i = 0
-  while (text.charAt(i++) === '\t') {
+  while (text.charAt(i++) === char) {
     count++
   }
   return count
 }
 
-const getIndent = amount => {
-  return repeat(' ', amount)
-}
-
-const convertTabs = (line, options) => {
-  if (options.insertSpaces) {
-    const tabs = numberOfTabs(line.text)
-    if (tabs) {
-      const range = new vscode.Range(
-        line.range.start,
-        line.range.start.translate(0, tabs)
-      )
-      return vscode.TextEdit.replace(range, getIndent(tabs * options.tabSize))
-    }
+const replaceIndent = (line, { insertSpaces, tabSize }) => {
+  const count = insertSpaces
+    ? countChars(line.text, '\t')
+    : countChars(line.text, ' ')
+  if (count) {
+    const range = new vscode.Range(
+      line.range.start,
+      line.range.start.translate(0, count)
+    )
+    const indentChar = insertSpaces ? ' ' : '\t'
+    const indentAmount = insertSpaces ? count * tabSize : ceil(count / tabSize)
+    return vscode.TextEdit.replace(range, repeat(indentChar, indentAmount))
   }
 }
 
@@ -52,7 +50,7 @@ export const trimLines = (document, options) => {
 
   while (i < document.lineCount) {
     const line = document.lineAt(i)
-    const functions = [trimLine, convertTabs]
+    const functions = [trimRight, replaceIndent]
     functions.forEach(fn => {
       const edit = fn(line, options)
       if (edit) {

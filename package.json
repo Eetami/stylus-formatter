@@ -1,7 +1,7 @@
 {
-  "name": "stylus-formatter",
-  "displayName": "Stylus Formatter",
-  "description": "Formatter for .styl files",
+  "name": "whitespace-formatter",
+  "displayName": "Whitespace Formatter",
+  "description": "Formatter for all files",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.30.0"
@@ -25,6 +25,18 @@
           "lang-stylus",
           "stylus-lang"
         ]
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Whitespace Formatter configuration",
+        "properties": {
+          "whitespace.format.enable": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable Whitespace Formatter"
+          }
+        }
       }
     ]
   },

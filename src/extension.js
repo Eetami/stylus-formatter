@@ -1,22 +1,20 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import vscode from 'vscode'
 import format from './format'
-
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 export const activate = context => {
-  const disposable = vscode.languages.registerDocumentFormattingEditProvider(
-    { language: 'stylus', scheme: 'file' },
-    {
-      provideDocumentFormattingEdits: (document, options) => {
-        return format(document, options)
-      }
+  const documentFilters = [{ scheme: 'file' }, { scheme: 'untitled' }]
+  const documentFormattingEditProvider = {
+    provideDocumentFormattingEdits: (document, options) => {
+      return format(document, options)
     }
+  }
+
+  const disposable = vscode.languages.registerDocumentFormattingEditProvider(
+    documentFilters,
+    documentFormattingEditProvider
   )
 
   context.subscriptions.push(disposable)

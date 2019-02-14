@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 import { ceil, repeat } from 'lodash'
 
-export const insertLastLine = (document, options) => {
+export const insertTrailingNewline = (document, options) => {
   const lastLine = document.lineAt(document.lineCount - 1)
   if (lastLine.text !== '') {
     return [vscode.TextEdit.insert(lastLine.range.end, '\n')]
@@ -64,5 +64,13 @@ export const trimLines = (document, options) => {
 }
 
 export default (document, options) => {
-  return [...insertLastLine(document, options), ...trimLines(document, options)]
+  const enabled = vscode.workspace
+    .getConfiguration('whitespace.format')
+    .get('enable')
+  return (
+    enabled && [
+      ...insertTrailingNewline(document, options),
+      ...trimLines(document, options)
+    ]
+  )
 }

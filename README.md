@@ -12,9 +12,11 @@ A simple code formatter for all files.
 
 ## Usage
 
-Open Command Palette by pressing `ctrl + shift + p` and find and click `Format Document`.
+Run `Format Document` command on any file by executing it from Command Palette (`Ctrl + Shift + P`).
 
 You can also set a custom keyboard shortcut for `Format Document` command.
+
+If you want files to be formatted on save set `editor.formatOnSave` to `true`.
 
 ## Extension Settings
 

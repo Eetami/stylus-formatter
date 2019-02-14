@@ -10,23 +10,10 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:stylus"
+    "*"
   ],
   "main": "build/extension.js",
   "contributes": {
-    "languages": [
-      {
-        "id": "stylus",
-        "extensions": [
-          ".styl"
-        ],
-        "aliases": [
-          "Stylus",
-          "lang-stylus",
-          "stylus-lang"
-        ]
-      }
-    ],
     "configuration": [
       {
         "title": "Whitespace Formatter configuration",

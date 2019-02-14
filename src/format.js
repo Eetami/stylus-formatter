@@ -65,8 +65,9 @@ export const trimLines = (document, options) => {
 
 export default (document, options) => {
   const enabled = vscode.workspace
-    .getConfiguration('whitespace.format')
+    .getConfiguration('whitespace.format', document.uri)
     .get('enable')
+
   return (
     enabled && [
       ...insertTrailingNewline(document, options),

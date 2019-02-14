@@ -10,6 +10,12 @@ A simple code formatter for all files.
 
 ![Format in action](images/format.gif)
 
+## Usage
+
+Open Command Palette by pressing `ctrl + shift + p` and find and click `Format Document`.
+
+You can also set a custom keyboard shortcut for `Format Document` command.
+
 ## Extension Settings
 
 This extension contributes the following settings:

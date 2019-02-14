@@ -1,5 +1,4 @@
 import vscode from 'vscode'
-import { ceil, repeat } from 'lodash'
 
 export const insertTrailingNewline = (document, options) => {
   const lastLine = document.lineAt(document.lineCount - 1)
@@ -29,6 +28,15 @@ const countChars = (text, char) => {
   return count
 }
 
+const repeat = (char, amount) => {
+  let str = ''
+  let i
+  for (i = 0; i < amount; i++) {
+    str += char
+  }
+  return str
+}
+
 const replaceIndent = (line, { insertSpaces, tabSize }) => {
   const count = insertSpaces
     ? countChars(line.text, '\t')
@@ -39,7 +47,9 @@ const replaceIndent = (line, { insertSpaces, tabSize }) => {
       line.range.start.translate(0, count)
     )
     const indentChar = insertSpaces ? ' ' : '\t'
-    const indentAmount = insertSpaces ? count * tabSize : ceil(count / tabSize)
+    const indentAmount = insertSpaces
+      ? count * tabSize
+      : Math.ceil(count / tabSize)
     return vscode.TextEdit.replace(range, repeat(indentChar, indentAmount))
   }
 }

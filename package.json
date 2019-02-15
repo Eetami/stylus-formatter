@@ -1,7 +1,7 @@
 {
   "name": "whitespace-formatter",
   "publisher": "eetami",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "displayName": "Whitespace Formatter",
   "description": "Formatter for all files",
   "icon": "images/icon.png",

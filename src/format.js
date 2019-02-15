@@ -1,8 +1,25 @@
 import vscode from 'vscode'
 
-export const insertTrailingNewline = (document, options) => {
+const countTrailingNewlines = document => {
+  let count = 0
+  let j = 1
+  while (document.lineAt(document.lineCount - j++).text === '') {
+    count++
+  }
+
+  return count
+}
+
+export const trimTrailingNewlines = (document, options) => {
   const lastLine = document.lineAt(document.lineCount - 1)
-  if (lastLine.text !== '') {
+  const emptyLines = countTrailingNewlines(document)
+  if (emptyLines > 1) {
+    const range = new vscode.Range(
+      lastLine.range.start.translate(-1 * (emptyLines - 1)),
+      lastLine.range.end
+    )
+    return [vscode.TextEdit.delete(range)]
+  } else if (emptyLines === 0) {
     return [vscode.TextEdit.insert(lastLine.range.end, '\n')]
   }
   return []
@@ -80,7 +97,7 @@ export default (document, options) => {
 
   return (
     enabled && [
-      ...insertTrailingNewline(document, options),
+      ...trimTrailingNewlines(document, options),
       ...trimLines(document, options)
     ]
   )
